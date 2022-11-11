@@ -13,7 +13,7 @@
 
 ### position (of grid)
 
-* by default, is as sea
+* by default, is as the sea
 * content contains a part of ship or a bomb
 
 #### "design" of ships
