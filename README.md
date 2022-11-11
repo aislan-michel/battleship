@@ -16,7 +16,7 @@
 * by default, is as sea
 * content contains a part of ship or bomb
 
-### "design" of ships
+#### "design" of ships
 * carrier: <===>
 * battleship: <==>
 * destroyer: <=>
