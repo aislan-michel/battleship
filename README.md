@@ -14,7 +14,7 @@
 ### position (of grid)
 
 * by default, is as sea
-* content contains a part of ship or bomb
+* content contains a part of ship or a bomb
 
 #### "design" of ships
 * carrier: <===>
