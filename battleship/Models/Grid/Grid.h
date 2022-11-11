@@ -9,4 +9,5 @@ public:
     Grid();
     Position get_content(int x, int y);
     void print_grid();
+    void shot(int x, int y);
 };

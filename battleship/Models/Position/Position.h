@@ -4,7 +4,7 @@
 
 class Position
 {
-    bool sea = true;
+    bool sea;
     std::string content;
 public:
     Position() = default;
@@ -12,4 +12,5 @@ public:
     std::string get_content();
     void set_content(std::string x);
     bool is_sea();
+    void set_sea(bool x);
 };

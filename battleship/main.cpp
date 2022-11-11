@@ -2,7 +2,9 @@
 #include <string>
 
 #include "Models/Grid/Grid.h"
+#include "Models/Player/Player.h"
 #include "Models/Ship/Ship.h"
+#include "Models/Player/Player.h"
 
 using namespace std;
 
@@ -17,32 +19,56 @@ void create_ships()
     };
 }
 
+//todo: create a player 
+    //player select 3 different ships
+    //player position your ships
+    //acceptable possitions: full horizontal or full vertical
+
+//"design" of ships
+    //carrier: <===>
+    //battleship: <==>
+    //destroyer: <=>
+    //submarine: <=>
+    //patrol boat: <>
+
+void your_turn()
+{
+    
+}
+
 int main(int argc, char* argv[])
 {
-    cout << "\n** BattleShip **\n\n" << endl;
+    string name;
+    Player player;
+    
+    cout << "\n** BattleShip Game**\n" << endl;
+    cout << "hi, enter your name: " ;
+    cin >> name;
 
+    player.set_name(name);
+    
     Grid grid;
-
-    grid.print_grid();
-
-    int x;
-    int y;
+    int x, y;
     
-    cout << "\n\nenter a x: ";
-    cin >> x;
+    cout << "\nto quit input 10\n";
+    while (true)
+    {
+        grid.print_grid();
+        
+        cout << "\n\nenter a x: ";
+        cin >> x;
 
-    cout << "enter a y: ";
-    cin >> y;
+        cout << "enter a y: ";
+        cin >> y;
 
-    auto position = grid.get_content(x, y);
+        if(x == 10 || y == 10)
+        {
+            cout << "see you later" << endl;
+            break;
+        }
 
-    cout << "content: " + position.get_content() << endl;
-
-    
-    
-    
-    
-
+        grid.shot(x, y);
+    }
     
     return 0;
 }

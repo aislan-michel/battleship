@@ -2,6 +2,7 @@
 
 Position::Position(std::string x)
 {
+    sea = true;
     content = x;
 }
 std::string Position::get_content()
@@ -15,4 +16,9 @@ void Position::set_content(std::string x)
 bool Position::is_sea()
 {
     return sea;
+}
+
+void Position::set_sea(bool x)
+{
+    sea = x;
 }

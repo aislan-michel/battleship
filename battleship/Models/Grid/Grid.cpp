@@ -13,7 +13,9 @@ Grid::Grid()
         }
     }
 
-    positions[0][0].set_content("part 1 of ship");
+    positions[0][0].set_content("<");
+    positions[0][1].set_content("=");
+    positions[0][2].set_content(">");
 }
 Position Grid::get_content(int x, int y) 
 {
@@ -30,10 +32,21 @@ void Grid::print_grid()
         
         for (int j = 0; j < 10; j++)
         {
-            if(positions[i][j].is_sea())
+            auto position = positions[i][j];
+            
+            if(position.is_sea())
             {
-                std::cout << "| * |";
+                std::cout << "|~";
+            }
+            else
+            {
+                std::cout << "|" + position.get_content();
             }
         }
     }
 }
+void Grid::shot(int x, int y)
+{
+    positions[x][y].set_sea(false);
+}
+
