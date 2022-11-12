@@ -2,12 +2,17 @@
 
 #include <string>
 
+using namespace std;
+
 class Ship
 {
     int number;
-    std::string classOfShip;
-    int size;
+    string class_of_ship;
+    string design;
 public:
     Ship() = default;
-    Ship(int x, std::string y, int z); 
+    Ship(int x, string y, string z);
+    string get_number();
+    string get_class_of_ship();
+    string get_design();
 };

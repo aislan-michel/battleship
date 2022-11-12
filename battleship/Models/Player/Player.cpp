@@ -1,6 +1,28 @@
 ﻿#include "Player.h"
 
-void Player::set_name(std::string x)
+#include <iostream>
+
+Player::Player(std::string x)
 {
     name = x;
 }
+std::string Player::get_name()
+{
+    return name;
+}
+void Player::add_ship(int i, Ship x)
+{
+    ships[i] = x;
+}
+void Player::show_ships()
+{
+    std::cout << "\n" + name + ", this is your ships:" << std::endl;
+    for (auto ship : ships)
+    {
+        std::cout << ship.get_class_of_ship() << endl;
+    }
+}
+
+
+
+

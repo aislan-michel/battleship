@@ -1,10 +1,16 @@
 ﻿#pragma once
 #include <string>
 
+#include "../Ship/Ship.h"
+
 class Player
 {
     std::string name;
+    Ship ships[3];
 public:
     Player() = default;
-    void set_name(std::string x);
+    Player(std::string x);
+    std::string get_name();
+    void add_ship(int i, Ship x);
+    void show_ships();
 };

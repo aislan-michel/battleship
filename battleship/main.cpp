@@ -7,46 +7,69 @@
 
 using namespace std;
 
-void create_ships()
-{
-    Ship ships[5] = {
-        Ship(1, "Carrier", 5),
-        Ship(2, "Battleship", 4),
-        Ship(3, "Destroyer", 3),
-        Ship(4, "Submarine", 3),
-        Ship(5, "Patrol Boat", 2),
-    };
-}
-
 //todo: create a player 
     //player select 3 different ships
     //player position your ships
     //acceptable possitions: full horizontal or full vertical
 
-//"design" of ships
-    //carrier: <===>
-    //battleship: <==>
-    //destroyer: <=>
-    //submarine: <=>
-    //patrol boat: <>
+Ship ships[5] = {
+    Ship(1, "Carrier", "<===>"),
+    Ship(2, "Battleship", "<==>"),
+    Ship(3, "Destroyer", "<=>"),
+    Ship(4, "Submarine", "<=>"),
+    Ship(5, "Patrol Boat", "<>"),
+};
 
-void your_turn()
+void show_available_ships()
 {
+    string ships_list = "\navailable ships:";
+    for (auto ship : ships)
+    {
+        ships_list.append("\n" + ship.get_number() + " - " + ship.get_class_of_ship() + ": " + ship.get_design());
+    }
     
+    cout << ships_list << endl;
 }
 
 int main(int argc, char* argv[])
 {
-    string name;
-    Player player;
+    string player_name1;
     
     cout << "\n** BattleShip Game**\n" << endl;
-    cout << "hi, enter your name: " ;
-    cin >> name;
+    cout << "Player 1, enter your name: " ;
+    cin >> player_name1;
 
-    player.set_name(name);
+    auto player1 = Player(player_name1);
     
+    show_available_ships();
+
+    string numbers_ship_player1[3];
+    
+    cout << "\n" + player1.get_name() + ", select three ships" << endl;
+
+    for (auto i = 0; i < 3; i++)
+    {
+        cout << "type " << i + 1 << "ª number: ";
+        cin >> numbers_ship_player1[i];
+    }
+    
+    for (auto i = 0; i < 3; i++)
+    {
+        for (auto ship : ships)
+        {
+            auto number = numbers_ship_player1[i];
+            
+            if(ship.get_number() == number)
+            {
+                player1.add_ship(i, ship);
+            }
+        }
+    }
+
+    player1.show_ships();
+/*
     Grid grid;
+    
     int x, y;
     
     cout << "\nto quit input 10\n\n";
@@ -67,7 +90,7 @@ int main(int argc, char* argv[])
         }
 
         grid.shot(x, y);
-    }
+    }*/
     
     return 0;
 }
