@@ -2,6 +2,8 @@
 
 #include <iostream>
 
+using namespace std;
+
 Grid::Grid()
 {
     for (int i = 0; i < 10; i++)
@@ -9,7 +11,7 @@ Grid::Grid()
         for (int j = 0; j < 10; j++)
         {
                 
-            positions[i][j] = Position("");
+            positions[i][j] = Position("*");
         }
     }
 
@@ -27,7 +29,7 @@ void Grid::print_grid()
     {
         if(i != 0)
         {
-            std::cout << "\n";
+            cout << "\n";
         }
         
         for (int j = 0; j < 10; j++)
@@ -36,17 +38,29 @@ void Grid::print_grid()
             
             if(position.is_sea())
             {
-                std::cout << "|~";
+                cout << "|~";
             }
             else
             {
-                std::cout << "|" + position.get_content();
+                cout << "|" + position.get_content();
             }
         }
     }
 }
 void Grid::shot(int x, int y)
 {
+    const string bomb = "*"; 
+    
     positions[x][y].set_sea(false);
+
+    const auto content = positions[x][y].get_content();
+
+    if(content == bomb)
+    {
+        cout << "\nyou found a bomb\n" << endl;
+        return;
+    }
+
+    cout << "\nyou found a piece of ship\n" << endl;
 }
 

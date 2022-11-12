@@ -4,7 +4,6 @@
 #include "Models/Grid/Grid.h"
 #include "Models/Player/Player.h"
 #include "Models/Ship/Ship.h"
-#include "Models/Player/Player.h"
 
 using namespace std;
 
@@ -50,9 +49,9 @@ int main(int argc, char* argv[])
     Grid grid;
     int x, y;
     
-    cout << "\nto quit input 10\n";
+    cout << "\nto quit input 10\n\n";
     while (true)
-    {
+    {        
         grid.print_grid();
         
         cout << "\n\nenter a x: ";
