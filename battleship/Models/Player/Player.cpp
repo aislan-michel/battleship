@@ -10,6 +10,11 @@ std::string Player::get_name()
 {
     return name;
 }
+Ship* Player::get_ships()
+{
+    return ships;
+}
+
 void Player::add_ship(int i, Ship x)
 {
     ships[i] = x;
