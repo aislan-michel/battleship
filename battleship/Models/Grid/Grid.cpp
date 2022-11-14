@@ -91,11 +91,11 @@ void Grid::add_ship(
     std::string type_position, std::string ship_design)
 {
     const int ship_size = ship_design.length();
-    const int col_end_position = col_start_position + ship_size; 
+    int off = 0;
 
     if (type_position == "horizontal")
     {
-        int off = 0;
+        const int col_end_position = col_start_position + ship_size; 
         for (int j = col_start_position; j < col_end_position; j++)
         {
             auto position = positions[row_start_position][j];
@@ -108,10 +108,30 @@ void Grid::add_ship(
 
             off++;
         }
+
+        return;
     }
 
-    
+    if(type_position == "vertical")
+    {
+        const int row_end_position = row_start_position + ship_size;
+        for (int i = row_start_position; i < row_end_position; i++)
+        {
+            auto position = positions[i][col_start_position];
+            
+            const auto content = ship_design[off];
 
+            position.set_content(content);
+
+            positions[i][col_start_position] = position;
+
+            off++;
+        }
+
+        return;
+    }
+
+    throw invalid_argument("invalid type position");
 }
 
 

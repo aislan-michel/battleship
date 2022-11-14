@@ -65,12 +65,31 @@ void create_players(int count)
     }
 }
 
-int main(int argc, char* argv[])
+void menu()
 {
     cout << "** BattleShip Game**" << endl;
+
+    string options;
+
+    options.append("1 - Single Player");
+    options.append("\n2 - Multi Player");
+    options.append("\n0 - Quit");
+
+    cout << options << endl;
+
+    cout << "> ";
+    
+}
+
+int main(int argc, char* argv[])
+{
+    int option;
     Grid grid;
 
-    create_players(1);
+    menu();
+    cin >> option;
+
+    create_players(option);
 
     //position ships
     auto player1 = players[0];
@@ -93,11 +112,9 @@ int main(int argc, char* argv[])
         grid.add_ship(row_start_position, col_start_position, type_position, player_ships[i].get_design());
 
         cout << "\n" << endl;
-
-        grid.print_ships();
-
-        cout << "\n" << endl;
     }
+
+    grid.print_ships();
 
     
 
