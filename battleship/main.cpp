@@ -7,8 +7,6 @@
 
 using namespace std;
 
-Player players[2];
-
 Ship ships[5] = {
     Ship(1, "Carrier", "<===>"),
     Ship(2, "Battleship", "<==>"),
@@ -16,6 +14,8 @@ Ship ships[5] = {
     Ship(4, "Submarine", "<=>"),
     Ship(5, "Patrol Boat", "<>"),
 };
+
+Player players[2];
 
 void create_players(int count)
 {
@@ -40,13 +40,13 @@ void create_players(int count)
     
         cout << "\n" + player.get_name() + ", select three ships" << endl;
 
-        for (auto i = 0; i < 3; i++)
+        for (int i = 0; i < 3; i++)
         {
             cout << "type " << i + 1 << "ª number: ";
             cin >> numbers_ship_player[i];
         }
     
-        for (auto i = 0; i < 3; i++)
+        for (int i = 0; i < 3; i++)
         {
             for (auto ship : ships)
             {
@@ -78,43 +78,58 @@ void menu()
     cout << options << endl;
 
     cout << "> ";
-    
 }
 
-int main(int argc, char* argv[])
+void position_ships(Player& player)
 {
-    int option;
-    Grid grid;
-
-    menu();
-    cin >> option;
-
-    create_players(option);
-
-    //position ships
-    auto player1 = players[0];
+    auto player_ships = player.get_ships();
     int row_start_position;
     int col_start_position;
     string type_position;
 
     cout << "position your ships\n" << endl;
-    const auto player_ships = player1.get_ships();
-    for (int i = 0; i < 3; i++)
+    for (int j = 0; j < 3; j++)
     {
-        cout << "position the " + player_ships[i].get_class_of_ship() << endl;
+        auto class_of_ship = player_ships[j].get_class_of_ship();
+        auto ship_design = player_ships[j].get_design();
+            
+        cout << "position the " + class_of_ship << endl;
         cout << "row start position: ";
         cin >> row_start_position;
         cout << "col start position: ";
         cin >> col_start_position;
         cout << "\nvertical or horizontal: ";
         cin >> type_position;
-
-        grid.add_ship(row_start_position, col_start_position, type_position, player_ships[i].get_design());
+            
+        player.position_ship(row_start_position, col_start_position, type_position, ship_design);
 
         cout << "\n" << endl;
+    } 
+}
+
+int main(int argc, char* argv[])
+{
+    int option;
+
+    menu();
+    cin >> option;
+
+    create_players(option);
+
+    for (int i = 0; i < option; i++)
+    {
+        position_ships(players[i]);
     }
 
-    grid.print_ships();
+    cout << string(50, '\n');
+
+    players[0].show_ships();
+
+    cout << string(2, '\n');
+
+    players[0].show_my_grid_with_ships();
+    
+
 
     
 
