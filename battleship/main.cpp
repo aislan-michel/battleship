@@ -87,7 +87,7 @@ int main(int argc, char* argv[])
         cin >> row_start_position;
         cout << "col start position: ";
         cin >> col_start_position;
-        cout << "\nvertical or horizontal:";
+        cout << "\nvertical or horizontal: ";
         cin >> type_position;
 
         grid.add_ship(row_start_position, col_start_position, type_position, player_ships[i].get_design());

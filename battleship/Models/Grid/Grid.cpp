@@ -10,7 +10,7 @@ Grid::Grid()
     {
         for (int j = 0; j < 10; j++)
         {
-            positions[i][j] = Position("*");
+            positions[i][j] = Position('*');
         }
     }
 
@@ -41,7 +41,7 @@ void Grid::print_grid()
             }
             else
             {
-                cout << "|" + position.get_content();
+                cout << "|" << position.get_content();
             }
         }
     }
@@ -59,9 +59,9 @@ void Grid::print_ships()
         {
             auto position = positions[i][j];
             
-            if(position.get_content() != "*")
+            if(position.get_content() != '*')
             {
-                cout << "|" + position.get_content();
+                cout << "|" << position.get_content();
             }
             else
             {
@@ -70,10 +70,9 @@ void Grid::print_ships()
         }
     }
 }
-
 void Grid::shot(int x, int y)
 {
-    const string bomb = "*"; 
+    const char bomb = '*'; 
     
     positions[x][y].set_sea(false);
 
@@ -92,19 +91,22 @@ void Grid::add_ship(
     std::string type_position, std::string ship_design)
 {
     const int ship_size = ship_design.length();
+    const int col_end_position = col_start_position + ship_size; 
 
     if (type_position == "horizontal")
     {
-        for (int i = row_start_position; i < row_start_position + 1; i++)
+        int off = 0;
+        for (int j = col_start_position; j < col_end_position; j++)
         {
-            for (int j = col_start_position; j < ship_size; j++)
-            {
-                auto position = positions[i][j];
+            auto position = positions[row_start_position][j];
 
-                position.set_content("#");
+            const auto content = ship_design[off];
 
-                positions[i][j] = position;
-            }
+            position.set_content(content);
+
+            positions[row_start_position][j] = position;
+
+            off++;
         }
     }
 

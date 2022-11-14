@@ -5,12 +5,12 @@
 class Position
 {
     bool sea;
-    std::string content;
+    char content;
 public:
     Position() = default;
-    Position(std::string x);
-    std::string get_content();
-    void set_content(std::string x);
+    Position(char x);
+    char get_content();
+    void set_content(char x);
     bool is_sea();
     void set_sea(bool x);
 };

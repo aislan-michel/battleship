@@ -1,15 +1,15 @@
 ﻿#include "Position.h"
 
-Position::Position(std::string x)
+Position::Position(char x)
 {
     sea = true;
     content = x;
 }
-std::string Position::get_content()
+char Position::get_content()
 {
     return content;
 }
-void Position::set_content(std::string x)
+void Position::set_content(char x)
 {
     content = x;
 }
