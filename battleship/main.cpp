@@ -97,7 +97,7 @@ void position_ships(Player& player)
     int col_start_position;
     string type_position;
 
-    cout << player.get_name() + ", position your ships\n" << endl;
+    cout << "\n" << player.get_name() + ", position your ships\n" << endl;
     for (int j = 0; j < 3; j++)
     {
         auto class_of_ship = player_ships[j].get_class_of_ship();
@@ -153,10 +153,6 @@ int main(int argc, char* argv[])
     {
         auto oponent = create_oponent();
         
-        //auto player = create_player(1);
-        
-        //position_ships(player);
-    
         int x, y;
     
         cout << "\nto quit input 10\n\n";
@@ -182,66 +178,23 @@ int main(int argc, char* argv[])
 
             oponent.set_grid(grid);
         }
-    }
-    else if(option == 2)
-    {
-        
-    }
-    else
-    {
+
         return 0;
     }
-/*
-    create_players(option);
 
-    for (int i = 0; i < option; i++)
+    if(option == 2)
     {
-        position_ships(players[i]);
+        create_players(2);
+
+        position_ships(players[0]);
+        position_ships(players[1]);
+
+        return 0;
+
+        //cout << string(50, '\n');
     }
 
-    cout << string(50, '\n');*/
-
-
     
 
-    players[0].show_ships();
-
-    cout << string(2, '\n');
-
-    players[0].show_my_grid_with_ships();
-    
-
-
-    
-
-    
-    
-    
-    
-/*
-    Grid grid;
-    
-    int x, y;
-    
-    cout << "\nto quit input 10\n\n";
-    while (true)
-    {        
-        grid.print_grid();
-        
-        cout << "\n\nenter a x: ";
-        cin >> x;
-
-        cout << "enter a y: ";
-        cin >> y;
-
-        if(x == 10 || y == 10)
-        {
-            cout << "see you later" << endl;
-            break;
-        }
-
-        grid.shot(x, y);
-    }*/
-    
     return 0;
 }
