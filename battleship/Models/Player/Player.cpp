@@ -37,6 +37,15 @@ void Player::show_my_grid_with_ships()
 {
     grid.print_ships();
 }
+Grid Player::get_grid()
+{
+    return grid;
+}
+void Player::set_grid(Grid x)
+{
+    grid = x;
+}
+
 
 
 

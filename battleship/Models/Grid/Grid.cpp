@@ -89,7 +89,7 @@ void Grid::shot(int x, int y)
 void Grid::add_ship(
     int row_start_position, int col_start_position,
     std::string type_position, std::string ship_design)
-{
+{    
     const int ship_size = ship_design.length();
     int off = 0;
 
