@@ -1,5 +1,7 @@
 ﻿#pragma once
 
+#include <string>
+
 #include "../Position/Position.h"
 
 class Grid

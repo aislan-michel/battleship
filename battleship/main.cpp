@@ -155,7 +155,6 @@ int main(int argc, char* argv[])
         
         int x, y;
     
-        cout << "\nto quit input 10\n\n";
         while (true)
         {
             auto grid = oponent.get_grid();
@@ -167,12 +166,6 @@ int main(int argc, char* argv[])
 
             cout << "enter a y: ";
             cin >> y;
-
-            if(x == 10 || y == 10)
-            {
-                cout << "see you later" << endl;
-                break;
-            }
 
             grid.shot(x, y);
 
