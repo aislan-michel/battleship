@@ -33,7 +33,7 @@ void Player::position_ship(
 {
     grid.add_ship(row_start_position, col_start_position, type_position, ship_design);
 }
-void Player::show_my_grid_with_ships()
+void Player::print_my_grid_with_ships()
 {
     grid.print_ships();
 }

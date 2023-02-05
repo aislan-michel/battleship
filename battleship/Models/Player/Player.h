@@ -19,7 +19,7 @@ public:
     void position_ship(
         int row_start_position, int col_start_position,
         std::string type_position, std::string ship_design);
-    void show_my_grid_with_ships();
+    void print_my_grid_with_ships();
     Grid get_grid();
     void set_grid(Grid x);
 };

@@ -6,7 +6,9 @@
 
 class Grid
 {
+private:
     Position positions[10][10];
+    void set_content_of_position(int row, int col, char content);
 public:
     Grid();
     Position get_content(int x, int y);

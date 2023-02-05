@@ -57,8 +57,6 @@ Player create_player(int index)
         }
     }
 
-    //player.show_ships();
-
     return player;
 }
 
@@ -112,6 +110,8 @@ void position_ships(Player& player)
         cin >> type_position;
             
         player.position_ship(row_start_position, col_start_position, type_position, ship_design);
+
+        player.print_my_grid_with_ships();
 
         cout << "\n" << endl;
     } 
@@ -182,9 +182,32 @@ int main(int argc, char* argv[])
         position_ships(players[0]);
         position_ships(players[1]);
 
+        players[0].print_my_grid_with_ships();
+
+        cout << string(4, '\n');
+        
+        players[1].print_my_grid_with_ships();
+        int x, y;
+
+        while (true)
+        {
+            auto grid = players[0].get_grid();
+
+            grid.print_grid();
+        
+            cout << "\n\nenter a x: ";
+            cin >> x;
+
+            cout << "enter a y: ";
+            cin >> y;
+
+            grid.shot(x, y);
+
+            players[0].set_grid(grid);
+        }
+
         return 0;
 
-        //cout << string(50, '\n');
     }
 
     
