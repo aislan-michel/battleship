@@ -23,3 +23,10 @@
 * submarine: <=>
 * patrol boat: <>
 
+### game mode: single player
+* create oponent, he have a grid with three different ships
+* player type x position and enter
+* player type y position and enter
+* a position of grid is shooted
+* player can find a bomb or one part of the ship
+* player win when find all ships of oponent
