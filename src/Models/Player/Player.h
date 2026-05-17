@@ -16,10 +16,11 @@ public:
     Ship* get_ships(); 
     void add_ship(int i, Ship x);
     void show_ships();
-    void position_ship(
+    PlaceShipResult position_ship(
         int row_start_position, int col_start_position,
         std::string type_position, std::string ship_design);
     void print_my_grid_with_ships();
-    Grid get_grid();
+    Grid& get_grid();
+    const Grid& get_grid() const;
     void set_grid(Grid x);
 };

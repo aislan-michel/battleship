@@ -1,4 +1,4 @@
-﻿#include "Grid.h"
+#include "Grid.h"
 
 #include <iostream>
 
@@ -6,36 +6,34 @@ using namespace std;
 
 Grid::Grid()
 {
-    for (int i = 0; i < 10; i++)
+    for (int i = 0; i < GridSize; i++)
     {
-        for (int j = 0; j < 10; j++)
+        for (int j = 0; j < GridSize; j++)
         {
-            positions[i][j] = Position('*');
+            positions[i][j] = Position(SeaContent);
         }
     }
-
-    /*positions[0][0].set_content("<");
-    positions[0][1].set_content("=");
-    positions[0][2].set_content(">");*/
 }
-Position Grid::get_content(int x, int y) 
+
+Position Grid::get_content(int x, int y)
 {
     return positions[x][y];
 }
+
 void Grid::print_grid()
-{   
-    for (int i = 0; i < 10; i++)
+{
+    for (int i = 0; i < GridSize; i++)
     {
         if(i != 0)
         {
             cout << "\n";
         }
-        
-        for (int j = 0; j < 10; j++)
+
+        for (int j = 0; j < GridSize; j++)
         {
             auto position = positions[i][j];
-            
-            if(position.is_sea())
+
+            if(!position.is_revealed())
             {
                 cout << "|~";
             }
@@ -46,20 +44,21 @@ void Grid::print_grid()
         }
     }
 }
+
 void Grid::print_ships()
 {
-    for (int i = 0; i < 10; i++)
+    for (int i = 0; i < GridSize; i++)
     {
         if(i != 0)
         {
             cout << "\n";
         }
-        
-        for (int j = 0; j < 10; j++)
+
+        for (int j = 0; j < GridSize; j++)
         {
             auto position = positions[i][j];
-            
-            if(position.get_content() != '*')
+
+            if(position.get_content() != SeaContent)
             {
                 cout << "|" << position.get_content();
             }
@@ -70,66 +69,83 @@ void Grid::print_ships()
         }
     }
 }
-void Grid::shot(int x, int y)
+
+ShotResult Grid::shot(int x, int y)
 {
-    const char bomb = '*'; 
-    
-    positions[x][y].set_sea(false);
+    if(!is_inside_grid(x, y))
+    {
+        cout << "\ninvalid position. Use values from 0 to 9.\n" << endl;
+        return ShotResult::Invalid;
+    }
+
+    if(positions[x][y].is_revealed())
+    {
+        cout << "\nyou already shot this position\n" << endl;
+        return ShotResult::AlreadyShot;
+    }
+
+    positions[x][y].reveal();
 
     const auto content = positions[x][y].get_content();
 
-    if(content == bomb)
+    if(content == SeaContent)
     {
         cout << "\nyou found a bomb\n" << endl;
-        return;
+        return ShotResult::Miss;
     }
 
     cout << "\nyou found a piece of ship\n" << endl;
+    return ShotResult::Hit;
 }
-void Grid::add_ship(
-    int row_start_position, int col_start_position,
-    std::string type_position, std::string ship_design)
-{    
-    const int ship_size = ship_design.length();
-    int off = 0;
 
-    if(row_start_position == 9 && col_start_position == 9)
+PlaceShipResult Grid::add_ship(
+    int row_start_position,
+    int col_start_position,
+    std::string type_position,
+    std::string ship_design)
+{
+    const int ship_size = static_cast<int>(ship_design.length());
+
+    if(type_position != "horizontal" && type_position != "vertical")
     {
-        
+        return PlaceShipResult::InvalidDirection;
     }
 
-    if (type_position == "horizontal")
+    for (int off = 0; off < ship_size; off++)
     {
-        const int col_end_position = col_start_position + ship_size; 
-        for (int j = col_start_position; j < col_end_position; j++)
+        const auto row = type_position == "vertical"
+            ? row_start_position + off
+            : row_start_position;
+        const auto col = type_position == "horizontal"
+            ? col_start_position + off
+            : col_start_position;
+
+        if(!is_inside_grid(row, col))
         {
-            const auto content = ship_design[off];
-
-            set_content_of_position(row_start_position, j, content);
-
-            off++;
+            return PlaceShipResult::OutOfBounds;
         }
 
-        return;
-    }
-
-    if(type_position == "vertical")
-    {
-        const int row_end_position = row_start_position + ship_size;
-        for (int i = row_start_position; i < row_end_position; i++)
+        if(has_ship(row, col))
         {
-            const auto content = ship_design[off];
-            
-            set_content_of_position(i, col_start_position, content);
-
-            off++;
+            return PlaceShipResult::Overlap;
         }
-
-        return;
     }
 
-    throw invalid_argument("invalid type position");
+    for (int off = 0; off < ship_size; off++)
+    {
+        const auto row = type_position == "vertical"
+            ? row_start_position + off
+            : row_start_position;
+        const auto col = type_position == "horizontal"
+            ? col_start_position + off
+            : col_start_position;
+
+        set_content_of_position(row, col, ship_design[off]);
+    }
+
+    return PlaceShipResult::Placed;
 }
+
 void Grid::set_content_of_position(int row, int col, char content)
 {
     auto position = positions[row][col];
@@ -139,4 +155,12 @@ void Grid::set_content_of_position(int row, int col, char content)
     positions[row][col] = position;
 }
 
+bool Grid::has_ship(int row, int col)
+{
+    return positions[row][col].get_content() != SeaContent;
+}
 
+bool Grid::is_inside_grid(int row, int col)
+{
+    return row >= 0 && row < GridSize && col >= 0 && col < GridSize;
+}

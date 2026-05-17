@@ -2,7 +2,7 @@
 
 Position::Position(char x)
 {
-    sea = true;
+    revealed = false;
     content = x;
 }
 char Position::get_content()
@@ -13,12 +13,12 @@ void Position::set_content(char x)
 {
     content = x;
 }
-bool Position::is_sea()
+bool Position::is_revealed()
 {
-    return sea;
+    return revealed;
 }
 
-void Position::set_sea(bool x)
+void Position::reveal()
 {
-    sea = x;
+    revealed = true;
 }

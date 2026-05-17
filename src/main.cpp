@@ -1,4 +1,5 @@
 #include <iostream>
+#include <limits>
 #include <string>
 
 #include "Models/Grid/Grid.h"
@@ -108,8 +109,14 @@ void position_ships(Player& player)
         cin >> col_start_position;
         cout << "\nvertical or horizontal: ";
         cin >> type_position;
-            
-        player.position_ship(row_start_position, col_start_position, type_position, ship_design);
+
+        const auto place_result = player.position_ship(row_start_position, col_start_position, type_position, ship_design);
+        if(place_result != PlaceShipResult::Placed)
+        {
+            cout << "\ninvalid ship position. Try again.\n" << endl;
+            j--;
+            continue;
+        }
 
         player.print_my_grid_with_ships();
 
@@ -142,6 +149,35 @@ Player create_oponent()
     return oponent;
 }
 
+int get_total_ship_parts(Player& player)
+{
+    auto player_ships = player.get_ships();
+    int total_ship_parts = 0;
+
+    for (int i = 0; i < 3; i++)
+    {
+        total_ship_parts += static_cast<int>(player_ships[i].get_design().length());
+    }
+
+    return total_ship_parts;
+}
+
+bool read_coordinate(const string& label, int& coordinate)
+{
+    cout << label;
+
+    if(cin >> coordinate)
+    {
+        return true;
+    }
+
+    cin.clear();
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+    cout << "\ninvalid value. Type a number from 0 to 9.\n" << endl;
+
+    return false;
+}
+
 int main(int argc, char* argv[])
 {
     int option; //todo: create enum
@@ -152,25 +188,38 @@ int main(int argc, char* argv[])
     if(option == 1) // single 
     {
         auto oponent = create_oponent();
+        const auto total_ship_parts = get_total_ship_parts(oponent);
+        int hits = 0;
         
         int x, y;
     
-        while (true)
+        while (hits < total_ship_parts)
         {
-            auto grid = oponent.get_grid();
+            auto& grid = oponent.get_grid();
             
             grid.print_grid();
+            cout << "\n\nhits: " << hits << "/" << total_ship_parts;
         
-            cout << "\n\nenter a x: ";
-            cin >> x;
+            if(!read_coordinate("\n\nenter a x: ", x))
+            {
+                continue;
+            }
 
-            cout << "enter a y: ";
-            cin >> y;
+            if(!read_coordinate("enter a y: ", y))
+            {
+                continue;
+            }
 
-            grid.shot(x, y);
-
-            oponent.set_grid(grid);
+            const auto shot_result = grid.shot(x, y);
+            if(shot_result == ShotResult::Hit)
+            {
+                hits++;
+            }
         }
+
+        auto& grid = oponent.get_grid();
+        grid.print_grid();
+        cout << "\n\nYou win! You found all opponent ships.\n" << endl;
 
         return 0;
     }
@@ -191,7 +240,7 @@ int main(int argc, char* argv[])
 
         while (true)
         {
-            auto grid = players[0].get_grid();
+            auto& grid = players[0].get_grid();
 
             grid.print_grid();
         
@@ -202,8 +251,6 @@ int main(int argc, char* argv[])
             cin >> y;
 
             grid.shot(x, y);
-
-            players[0].set_grid(grid);
         }
 
         return 0;

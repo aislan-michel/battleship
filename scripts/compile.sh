@@ -1,6 +1,6 @@
 g++ -g src/main.cpp \
-  battleship/Models/Grid/Grid.cpp \
-  battleship/Models/Player/Player.cpp \
-  battleship/Models/Position/Position.cpp \
-  battleship/Models/Ship/Ship.cpp \
-  -o battleship/battleship.exe
+  src/Models/Grid/Grid.cpp \
+  src/Models/Player/Player.cpp \
+  src/Models/Position/Position.cpp \
+  src/Models/Ship/Ship.cpp \
+  -o src/battleship.exe
