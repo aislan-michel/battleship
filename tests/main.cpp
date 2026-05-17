@@ -112,6 +112,22 @@ void test_grid_shot_results()
     cout.rdbuf(previous_output);
 }
 
+void test_grid_marks_missed_shot_as_revealed_sea()
+{
+    Grid grid;
+    ostringstream output;
+    auto* previous_output = cout.rdbuf(output.rdbuf());
+
+    grid.shot(0, 0);
+
+    cout.rdbuf(previous_output);
+
+    const auto position = grid.get_content(0, 0);
+
+    assert_true(position.is_revealed(), "Missed shot should reveal the position");
+    assert_equal(SeaContent, position.get_content(), "Missed shot should keep sea content");
+}
+
 void test_player_exposes_mutable_grid()
 {
     Player player("Ada");
@@ -139,6 +155,7 @@ int main()
         test_grid_places_ship_vertically,
         test_grid_rejects_invalid_ship_positions,
         test_grid_shot_results,
+        test_grid_marks_missed_shot_as_revealed_sea,
         test_player_exposes_mutable_grid,
         test_ship_getters,
     };

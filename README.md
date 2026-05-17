@@ -1,32 +1,52 @@
-# battleship game
+# Battleship Game
 
-### player 
-* player select 3 different ships
-* player position your ships
-* acceptable possitions: full horizontal or full vertical
-* player can shot the grid
-  * he founds a part of ship or a bomb
+A console Battleship game written in C++.
 
-### grid
+## Features
 
-* 10x10
+- 10x10 board with row and column labels.
+- Single player mode against a randomly generated opponent.
+- Local multiplayer mode with two players, ship selection, manual placement, alternating turns, and win detection.
+- Input validation for menu choices, coordinates, repeated shots, ship overlap, invalid direction, and ships outside the board.
+- Unit tests for the core models.
 
-### position (of grid)
+## Board
 
-* by default, is as the sea
-* content contains a part of ship or a bomb
+- `~` hidden position
+- `o` missed shot
+- `<`, `=`, `>` ship pieces revealed by hits
 
-#### "design" of ships
-* carrier: <===>
-* battleship: <==>
-* destroyer: <=>
-* submarine: <=>
-* patrol boat: <>
+Rows and columns use values from `0` to `9`.
 
-### game mode: single player
-* create oponent, he have a grid with three different ships
-* player type x position and enter
-* player type y position and enter
-* a position of grid is shooted
-* player can find a bomb or one part of the ship
-* player win when find all ships of oponent
+## Build
+
+Using MSYS2 Bash from PowerShell:
+
+```powershell
+& 'C:\msys64\usr\bin\bash.exe' scripts/compile.sh
+```
+
+Or compile directly with g++:
+
+```powershell
+& 'C:\msys64\ucrt64\bin\g++.exe' -g src\main.cpp src\Models\Grid\Grid.cpp src\Models\Player\Player.cpp src\Models\Position\Position.cpp src\Models\Ship\Ship.cpp -o src\battleship.exe
+```
+
+## Run
+
+```powershell
+.\src\battleship.exe
+```
+
+During a turn, type `q` for any coordinate to quit the current match.
+
+## Tests
+
+Compile and run tests with:
+
+```powershell
+& 'C:\msys64\usr\bin\bash.exe' scripts/compile_tests.sh
+& 'C:\msys64\usr\bin\bash.exe' scripts/test.sh
+```
+
+The tests cover `Grid`, `Position`, `Player`, and `Ship`.

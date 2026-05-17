@@ -27,12 +27,12 @@ class Grid
 {
 private:
     Position positions[GridSize][GridSize];
-    bool has_ship(int row, int col);
-    bool is_inside_grid(int row, int col);
+    bool has_ship(int row, int col) const;
+    bool is_inside_grid(int row, int col) const;
     void set_content_of_position(int row, int col, char content);
 public:
     Grid();
-    Position get_content(int x, int y);
+    Position get_content(int x, int y) const;
     void print_grid();
     void print_ships();
     ShotResult shot(int x, int y);

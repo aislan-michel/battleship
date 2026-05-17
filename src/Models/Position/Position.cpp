@@ -5,7 +5,7 @@ Position::Position(char x)
     revealed = false;
     content = x;
 }
-char Position::get_content()
+char Position::get_content() const
 {
     return content;
 }
@@ -13,7 +13,7 @@ void Position::set_content(char x)
 {
     content = x;
 }
-bool Position::is_revealed()
+bool Position::is_revealed() const
 {
     return revealed;
 }

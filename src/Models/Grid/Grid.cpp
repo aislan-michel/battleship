@@ -4,6 +4,21 @@
 
 using namespace std;
 
+char get_visible_content(const Position& position)
+{
+    if(!position.is_revealed())
+    {
+        return '~';
+    }
+
+    if(position.get_content() == SeaContent)
+    {
+        return 'o';
+    }
+
+    return position.get_content();
+}
+
 Grid::Grid()
 {
     for (int i = 0; i < GridSize; i++)
@@ -15,44 +30,43 @@ Grid::Grid()
     }
 }
 
-Position Grid::get_content(int x, int y)
+Position Grid::get_content(int x, int y) const
 {
     return positions[x][y];
 }
 
 void Grid::print_grid()
 {
+    cout << "  ";
+    for (int col = 0; col < GridSize; col++)
+    {
+        cout << " " << col;
+    }
+
     for (int i = 0; i < GridSize; i++)
     {
-        if(i != 0)
-        {
-            cout << "\n";
-        }
+        cout << "\n" << i << " ";
 
         for (int j = 0; j < GridSize; j++)
         {
             auto position = positions[i][j];
 
-            if(!position.is_revealed())
-            {
-                cout << "|~";
-            }
-            else
-            {
-                cout << "|" << position.get_content();
-            }
+            cout << "|" << get_visible_content(position);
         }
     }
 }
 
 void Grid::print_ships()
 {
+    cout << "  ";
+    for (int col = 0; col < GridSize; col++)
+    {
+        cout << " " << col;
+    }
+
     for (int i = 0; i < GridSize; i++)
     {
-        if(i != 0)
-        {
-            cout << "\n";
-        }
+        cout << "\n" << i << " ";
 
         for (int j = 0; j < GridSize; j++)
         {
@@ -155,12 +169,12 @@ void Grid::set_content_of_position(int row, int col, char content)
     positions[row][col] = position;
 }
 
-bool Grid::has_ship(int row, int col)
+bool Grid::has_ship(int row, int col) const
 {
     return positions[row][col].get_content() != SeaContent;
 }
 
-bool Grid::is_inside_grid(int row, int col)
+bool Grid::is_inside_grid(int row, int col) const
 {
     return row >= 0 && row < GridSize && col >= 0 && col < GridSize;
 }
